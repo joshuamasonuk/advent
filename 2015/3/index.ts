@@ -40,7 +40,7 @@ const deliver = (grid: Map<string, number>, input: string): void => {
       encoding: "utf-8",
     });
 
-    let grid = new Map();
+    let grid = new Map<string, number>();
 
     grid.set("0,0", 1);
 
@@ -49,7 +49,7 @@ const deliver = (grid: Map<string, number>, input: string): void => {
     // How many houses receive at least one present?
     console.log(grid.size);
 
-    grid = new Map();
+    grid = new Map<string, number>();
 
     grid.set("0,0", 2);
 
