@@ -2,7 +2,7 @@ import { FileHandle, open } from "fs/promises";
 import path from "path";
 
 abstract class Source {
-  public abstract get signal(): number;
+  abstract get signal(): number;
 }
 
 abstract class DualSource<T> extends Source {
@@ -18,7 +18,7 @@ abstract class DualSource<T> extends Source {
 }
 
 class BitwiseAND extends DualSource<Source> {
-  public get signal(): number {
+  get signal(): number {
     return this.source1.signal & this.source2.signal;
   }
 }
@@ -32,25 +32,25 @@ class BitwiseNOT extends Source {
     this.source = source;
   }
 
-  public get signal(): number {
+  get signal(): number {
     return ~this.source.signal;
   }
 }
 
 class BitwiseOR extends DualSource<Source> {
-  public get signal(): number {
+  get signal(): number {
     return this.source1.signal | this.source2.signal;
   }
 }
 
 class LeftShift extends DualSource<number> {
-  public get signal(): number {
+  get signal(): number {
     return this.source1.signal << this.source2;
   }
 }
 
 class RightShift extends DualSource<number> {
-  public get signal(): number {
+  get signal(): number {
     return this.source1.signal >> this.source2;
   }
 }
@@ -64,13 +64,13 @@ class Value extends Source {
     this.source = source;
   }
 
-  public get signal(): number {
+  get signal(): number {
     return this.source;
   }
 }
 
 class Wire extends Source {
-  public source: Source | null = null;
+  source: Source | null = null;
 
   constructor(source?: Source) {
     super();
@@ -78,7 +78,7 @@ class Wire extends Source {
     if (source) this.source = source;
   }
 
-  public get signal(): number {
+  get signal(): number {
     if (!this.source) {
       throw new Error("Unable to return signal where source is null.");
     }
