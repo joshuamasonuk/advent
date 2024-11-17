@@ -18,14 +18,16 @@ import { Graph } from "../../utilities/graph";
       graph.addVertex(parts[0]);
       graph.addVertex(parts[2]);
 
-      graph.addEdge(parts[0], parts[2], parseInt(parts[4]));
-      graph.addEdge(parts[2], parts[0], parseInt(parts[4]));
+      const distance = parseInt(parts[4]);
+
+      graph.addEdge(parts[0], parts[2], distance);
+      graph.addEdge(parts[2], parts[0], distance);
     }
 
     const permutations = getPermutations(Array.from(graph.vertices));
 
     let shortest = Infinity;
-    let longest = 0;
+    let longest = -Infinity;
 
     for (const permutation of permutations) {
       let distance = 0;
