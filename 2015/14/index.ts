@@ -21,6 +21,24 @@ class Reindeer {
     this.rest = rest;
     this.speed = speed;
   }
+
+  tick = () => {
+    this.duration += 1;
+
+    if (this.status === Status.flying) {
+      this.travelled += this.speed;
+
+      if (this.duration === this.energy) {
+        this.status = Status.resting;
+        this.duration = 0;
+      }
+    } else {
+      if (this.duration === this.rest) {
+        this.status = Status.flying;
+        this.duration = 0;
+      }
+    }
+  };
 }
 
 (async () => {
@@ -45,21 +63,7 @@ class Reindeer {
 
     for (let i = 0; i < 2503; i++) {
       for (const deer of reindeer) {
-        deer.duration += 1;
-
-        if (deer.status === Status.flying) {
-          deer.travelled += deer.speed;
-
-          if (deer.duration === deer.energy) {
-            deer.status = Status.resting;
-            deer.duration = 0;
-          }
-        } else {
-          if (deer.duration === deer.rest) {
-            deer.status = Status.flying;
-            deer.duration = 0;
-          }
-        }
+        deer.tick();
       }
 
       reindeer.sort((a, b) => b.travelled - a.travelled)[0].points += 1;
